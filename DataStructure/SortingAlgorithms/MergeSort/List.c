@@ -185,12 +185,12 @@ void merge_sort_recursion(int array[], int left, int right)
 {
     if (left < right)
     {
-        int middle = left + (right - left) / 2;
+        int middle = left + (right - left) / 2; //Calcula a posição da metade do array
 
-        merge_sort_recursion(array, left, middle);
-        merge_sort_recursion(array, middle + 1, right);
+        merge_sort_recursion(array, left, middle); //Entra na recursão com início em left e término em middle
+        merge_sort_recursion(array, middle + 1, right); //Após resolver a recursão anterior, entra em middle + 1 e termina em right
 
-        merge_sorted_arrays(array, left, middle, right);
+        merge_sorted_arrays(array, left, middle, right); //Após terminar as recursões faz o merge
     }
 }
 

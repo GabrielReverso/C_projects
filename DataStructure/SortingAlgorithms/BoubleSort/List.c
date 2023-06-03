@@ -292,81 +292,37 @@ void list_insert(List *list, int index, int value)
     }
 }
 
-/*SELECTION SORT*/
+/*SORT*/
 
-void list_selection_sort(List *list)
+void list_bouble_sort(List *list)
 {
-    Node *selected = list->first; //Node selecionado para ordenação
-    Node *mininum; //Ponteiro para o node com menor valor
-    Node *current; //Ponteiro para o node atual
+    Node *end = list->first;
+    Node *current; 
+    Node *current_previous;
 
-    int savedValue; //Variavel auxiliar para salvar o valor
+    int savedValue;
 
-    //Enquanto o next do node selecionado existir
-    while(selected->next != NULL)
+    while (end->next != NULL) {
+        end = end->next;
+    }
+
+    while (end != list->first) 
     {
-        mininum = selected; //Ponteiro do mínimo passa a apontar para o node selecionado
-        current = selected->next; //Ponteiro do node atual passa a apontar para o next do node selecionado
+        current_previous = list->first;
+        current = list->first->next;
 
-        //Enquanto o node atual existir
-        while(current != NULL)
+        while (current_previous != end) 
         {
-            //Se o data do node atual for menor que o data do node mínimo
-            if(current->data < mininum->data)
+            if (current_previous->data > current->data)
             {
-                mininum = current; //Ponteiro do mínimo aponta o node atual
+                savedValue = current_previous->data;
+                current_previous->data = current->data;
+                current->data = savedValue;
             }
-            current = current->next; //Ponteiro para o node atual recebe o ponteiro para o próximo node
+            current_previous = current;
+            current = current->next;
         }
-
-        savedValue = selected->data; //Variável auxiliar recebe data do node selecionado
-        selected->data = mininum->data; //Node selecionado recebe o data do node mínimo
-        mininum->data = savedValue; //Node mínimo recebe o valor salvo pela variável auxiliar
-        selected = selected->next; //Ponteiro para o node selecionado recebe o ponteiro para o próximo node
+        end = end->prev;
     }
 }
 
-//*****SELECTION SORT RECURSION*********
-void selection_swap(Node *minimum, Node *current, Node *selected)
-{
-    int savedValue = selected->data; //Variável auxiliar recebe data do node selecionado
-    selected->data = minimum->data; //Node selecionado recebe o data do node mínimo
-    minimum->data = savedValue; //Node mínimo recebe o valor salvo pela variável auxiliar
-}
-
-void minimum_search(Node *minimum, Node *current, Node *selected)
-{
-    if(current != NULL)
-    {
-        if(current->data < minimum->data)
-        {
-            minimum = current;
-        }
-
-        minimum_search(minimum, current->next, selected);
-    }
-    else 
-    {
-        selection_swap(minimum, current, selected);
-    }
-}
-
-void selection_sort_recursion(Node *selected)
-{
-    Node *minimum = selected;
-    Node *current = selected->next;
-
-    minimum_search(minimum, current, selected);
-
-    if(selected->next != NULL)
-    {
-        selection_sort_recursion(selected->next);
-    }
-}
-
-void list_selection_sort_recursion(List *list)
-{
-    Node *selected = list->first;
-
-    selection_sort_recursion(selected);
-}

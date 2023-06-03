@@ -10,5 +10,4 @@ void list_insert(List *list, int index, int value);
 int list_get(List *list, int index);
 
 
-void list_selection_sort(List *list);
-void list_selection_sort_recursion(List *list);
+void list_bouble_sort(List *list);

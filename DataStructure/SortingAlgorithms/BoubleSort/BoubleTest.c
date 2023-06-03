@@ -13,7 +13,7 @@ int main()
 
     list_display(list);
 
-    list_selection_sort_recursion(list);
+    list_bouble_sort(list);
 
     list_display(list);
 
