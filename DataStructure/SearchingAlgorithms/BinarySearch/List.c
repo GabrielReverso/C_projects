@@ -95,8 +95,8 @@ int list_remove(List *list, int index)
     }
 
     aux = list->array[index]; // Auxiliar recebe a variável que vai ser apagada
-
-    for (int i = index; i < list->lenght; i++) // Joga os itens da frente para o index anterior
+    int i;
+    for (i = index; i < list->lenght; i++) // Joga os itens da frente para o index anterior
     {
         list->array[i] = list->array[i + 1];
     }
@@ -135,8 +135,9 @@ void list_insert(List *list, int index, int value)
             return;
         }
     }
+    int i;
 
-    for (int i = list->lenght + 1; i >= index; i--) // Percorre do ultimo valor até o index desejado fazendo swift dos valores
+    for (i = list->lenght + 1; i >= index; i--) // Percorre do ultimo valor até o index desejado fazendo swift dos valores
     {
         list->array[i] = list->array[i - 1];
     }
@@ -146,37 +147,8 @@ void list_insert(List *list, int index, int value)
 }
 
 /*SORTING*/
-/*
-int list_binary_search(List *list, int value)
-{
-    int left = 0;
-    int right = list->lenght-1;
-    int middle = (right-left)/2;
-
-    while(left != right)
-    {
-        if (list->array[middle] == value) {
-            return middle;
-        }
-        if (list->array[middle] < value) {
-            left = middle+1;
-        }
-        else {
-        right = middle-1;
-        }
-        middle = (right-left)/2 + left;
-    }
-     if (list->array[middle] == value) {
-        return middle;
-     }
-     else {
-     return -1;
-     }
-}
-*/
-
 //Recursion
-int list_recursive_binary_search(int* array, int left, int right, int value)
+int recursive_binary_search(int* array, int left, int right, int value)
 {
     int middle = (right-left)/2 + left;
 
@@ -194,14 +166,41 @@ int list_recursive_binary_search(int* array, int left, int right, int value)
             return middle;
         }
         if (array[middle] < value) {
-            return list_recursive_binary_search(array, middle+1, right, value);
+            return recursive_binary_search(array, middle+1, right, value);
         }
         else {
-            return list_recursive_binary_search(array, left, middle-1, value);
+            return recursive_binary_search(array, left, middle-1, value);
         }
 }
-
+//Iterative
+int binary_search(int* array, int left, int right, int value){
+    
+    int middle = (right-left)/2 + left;
+    
+    while(left != right)
+    {
+        if (array[middle] == value) {
+            return middle;
+        }
+        if (array[middle] < value) {
+            left = middle+1;
+        }
+        else {
+        right = middle-1;
+        }
+        middle = (right-left)/2 + left;
+    }
+    if (array[middle] == value) {
+        return middle;
+    }
+    else {
+    return -1;
+    }
+}
+//Main ADT
 int list_binary_search(List *list, int value)
 {
-    return list_recursive_binary_search(list->array, 0, list->lenght-1, value);
+    return recursive_binary_search(list->array, 0, list->lenght-1, value);
+    //return binary_search(list->array, 0, list->lenght-1, value);
 }
+
