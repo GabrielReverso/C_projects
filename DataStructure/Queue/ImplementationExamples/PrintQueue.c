@@ -21,7 +21,7 @@ int main()
         }
         printf("\nSelecione uma opcao: ");
         scanf("%d", &option);
-        system("cls");
+        system("clear");
 
         switch (option)
         {
@@ -34,7 +34,7 @@ int main()
             printf("Digite o numero que deseja enfileirar: ");
             scanf("%d", &num);
             queue_enqueue(queue, num);
-            system("cls");
+            system("clear");
             printf("Numero enfileirado: %d\n", num);
             system("pause");
             break;
